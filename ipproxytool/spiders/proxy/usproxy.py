@@ -3,7 +3,7 @@
 import re
 
 from proxy import Proxy
-from basespider import BaseSpider
+from .basespider import BaseSpider
 
 
 class UsProxySpider(BaseSpider):
@@ -35,8 +35,7 @@ class UsProxySpider(BaseSpider):
 
     def parse_page(self, response):
         pattern = re.compile(
-                '<tr><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>('
-                '.*?)</td><td>(.*?)</td></tr>',
+		'<tr><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td.+?>(.*?)</td><td>(.*?)</td><td.+?>(.*?)</td><td.+?>(.*?)</td><td.+?>(.*?)</td></tr>',
                 re.S)
         items = re.findall(pattern, response.body)
 

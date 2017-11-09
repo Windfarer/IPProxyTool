@@ -6,7 +6,7 @@ import re
 import config
 
 from scrapy import Request
-from validator import Validator
+from .validator import Validator
 
 
 class JDSpider(Validator):
@@ -41,10 +41,13 @@ class JDSpider(Validator):
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:52.0) Gecko/20100101 Firefox/52.0',
         }
 
-        self.success_mark = 'comments'
         self.is_record_web_page = False
-
         self.init()
+
+    def success_content_parse(self, response):
+        if 'comments' in response.text:
+            return True
+        return False
 
     def start_requests(self):
         count = self.sql.get_proxy_count(self.name)
@@ -87,7 +90,7 @@ class JDSpider(Validator):
         self.log('name:%s time:%s' % (name, time.time() - response.meta.get('cur_time')))
 
         pattern = re.compile('commentVersion:\'(\d+)\'', re.S)
-        comment_version = re.search(pattern, response.body).group(1)
+        comment_version = re.search(pattern, response.text).group(1)
 
         # sort type 5:推荐排序 6:时间排序
         url = 'https://club.jd.com/comment/productPageComments.action?callback=fetchJSON_comment98vv' \

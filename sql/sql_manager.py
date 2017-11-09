@@ -1,8 +1,9 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import config
 
-from sql import Sql
+from sql.sql_base import SqlBase
+
 
 class SqlManager(object):
     def __init__(self):
@@ -10,17 +11,17 @@ class SqlManager(object):
         db_config = config.DB_config.get(db_type)
 
         if db_type == 'mysql':
-            from mysql import MySql
+            from sql.mysql import MySql
             self.sql = MySql(**db_config)
         elif db_type == 'redis':
             pass
         elif db_type == 'sqlite':
             pass
         elif db_type == 'mongodb':
-            from mongodb import Mongodb
+            from sql.mongodb import Mongodb
             self.sql = Mongodb(**db_config)
         else:  # default mysql
-            from mysql import MySql
+            from sql.mysql import MySql
             self.sql = MySql(**config.DB_config.get('db_type'))
 
     def init_database(self, database_name):

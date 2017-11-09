@@ -20,7 +20,6 @@ class Validator(Spider):
 
         self.urls = []
         self.headers = None
-        self.success_mark = ''
         self.timeout = 10
         self.is_record_web_page = False
 
@@ -81,7 +80,7 @@ class Validator(Spider):
 
         proxy.vali_count += 1
         proxy.speed = time.time() - response.meta.get('cur_time')
-        if self.success_mark in response.body or self.success_mark is '':
+        if self.success_content_parse(response):
             if table == self.name:
                 if proxy.speed > self.timeout:
                     self.sql.del_proxy_with_id(table, proxy.id)
@@ -95,6 +94,9 @@ class Validator(Spider):
                 self.sql.del_proxy_with_id(table_name = table, id = proxy.id)
 
         self.sql.commit()
+
+    def success_content_parse(self, response):
+        return True
 
     def error_parse(self, failure):
         request = failure.request
@@ -139,7 +141,7 @@ class Validator(Spider):
         filename = '{time} {ip}'.format(time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S:%f'), ip = ip)
 
         if self.is_record_web_page:
-            with open('%s/%s.html' % (self.dir_log, filename), 'w') as f:
+            with open('%s/%s.html' % (self.dir_log, filename), 'wb') as f:
                 f.write(data)
                 f.close()
 

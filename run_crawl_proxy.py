@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import logging
 import os
@@ -27,16 +27,13 @@ scrapydo.setup()
 if __name__ == '__main__':
     os.chdir(sys.path[0])
 
-    reload(sys)
-    sys.setdefaultencoding('utf-8')
-
     if not os.path.exists('log'):
         os.makedirs('log')
 
     logging.basicConfig(
-            filename = 'log/crawl_proxy.log',
-            format = '%(levelname)s %(asctime)s: %(message)s',
-            level = logging.DEBUG
+        filename = 'log/crawl_proxy.log',
+        format = '%(levelname)s %(asctime)s: %(message)s',
+        level = logging.DEBUG
     )
 
     sql = SqlManager()
