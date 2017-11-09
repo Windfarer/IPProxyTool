@@ -30,11 +30,11 @@ def validator():
         # LagouSpider,
         # BossSpider,
         # LiepinSpider,
-        # JDSpider,
-        DoubanSpider,
+        JDSpider,
+        #DoubanSpider,
         # BBSSpider,
         # ZhiLianSpider,
-        # AmazonCnSpider,
+        #AmazonCnSpider,
     ]
 
     process_list = []

@@ -5,23 +5,11 @@ DB_config = {
     'db_type': 'mysql',
 
     'mysql': {
-        'host': 'localhost',
+        'host': '192.168.5.103',
         'port': 3306,
         'user': 'root',
-        'password': '123456',
+        'password': 'password',
         'charset': 'utf8',
-    },
-    'redis': {
-        'host': 'localhost',
-        'port': 6379,
-        'password': '123456',
-        'db': 1,
-    },
-    'mongodb':{
-        'host': 'localhost',
-        'port': 27017,
-        'username': '',
-        'password': '',
     }
 }
 

@@ -21,7 +21,12 @@ if __name__ == '__main__':
     )
 
     subprocess.Popen(['python', 'run_crawl_proxy.py'])
-    subprocess.Popen(['python', 'run_server.py'])
+    subprocess.Popen(["gunicorn", "-k", "gevent",
+                         "--max-requests", "3000",
+                         "--access-logfile", "-",
+                         "--error-logfile", "-",
+                         "-b","0.0.0.0:8000",
+                         "server.dataserver:app"])
 
     run_validator.validator()
 
