@@ -27,6 +27,7 @@ if __name__ == '__main__':
                          "--error-logfile", "-",
                          "-b","0.0.0.0:8000",
                          "server.dataserver:app"])
+    subprocess.Popen(['python', 'kuaidaili_importer.py'])
 
     run_validator.validator()
 
